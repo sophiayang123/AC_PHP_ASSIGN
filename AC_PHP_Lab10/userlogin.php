@@ -1,7 +1,4 @@
 <?php
-    session_start();
-    session_regenerate_id(false);
-    echo session_id();
     require_once('./dao/UserinfoDAO.php'); 
     require_once('header.php');
 
@@ -17,10 +14,16 @@
                     $password = $_POST['password'];
                     $user->authenticate($username, $password);           
                     if($user->isAuthenticated()){
+                        echo 'userlogin user isAuthenticated<br>';
                         //insert date to database at this point
                         $user->updateDate($username,$password);
-                        $_SESSION['user'] = $user;
-                        header('Location: mailingList.php');
+                        session_start();
+                        session_regenerate_id(false); 
+                        if(isset($_SESSION['user'])){
+                            echo 'userlogin session isset <br>';
+                            $_SESSION['user'] = $user;
+                            // header('Location: mailqingList.php');
+                        }  
                     }
                 }
             }

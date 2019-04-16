@@ -117,6 +117,7 @@
         }
 
         public function isAuthenticated(){
+            echo 'into userinfoDAO isAuthenticated';
             return $this->authenticated;
         }
 
