@@ -6,15 +6,17 @@
     class UserinfoDAO extends AbstractDAO{
         protected $adminID;
         protected $lastLogin;
-        // private $username;
+        protected $dbError;
         // private $password;
         private $authenticated = false;
 
         function __construct() {
             try{
                 parent::__construct();
+                $dbError = true;
                 
             }catch(mysqli_sql_exception $e){
+                $dbError = false;
                 throw $e;
             }
         }

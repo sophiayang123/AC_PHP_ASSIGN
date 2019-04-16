@@ -24,11 +24,14 @@
                 echo "Connection established; <br>";
             }
         }
+
         public function getMysqli(){
             return $this->mysqli; 
         }
 
-
+        public function hasDbError(){
+            return $this->dbError;
+        }
     }
 
 

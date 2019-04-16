@@ -1,7 +1,7 @@
 <?php
-    // session_start();
-    // session_regenerate_id(false);
-    // echo session_id();
+    session_start();
+    session_regenerate_id(false);
+    echo session_id();
     require_once('./dao/UserinfoDAO.php'); 
     require_once('header.php');
 
@@ -40,7 +40,7 @@
            }
         ?>
 
-        <form name="login" id="login" method="post" action="<?php echo $_SERVER['php_self'];?>">
+        <form name="login" id="login" method="post" action=<?php echo $_SERVER['PHP_SELF'];?> >
             <table>
                 <tr>
                     <td>Username:</td>
