@@ -7,20 +7,20 @@
 		private $referrer;
 
         function __construct($customerName,$phoneNumber, $emailAddress, $referrer){
-            $this->setuserid();
+            //$this->setuserid();
             $this->setcustomerName($customerName);
 			$this->setphoneNumber($phoneNumber);
             $this->setemailAddress($emailAddress);
 			$this->setreferrer($referrer);
 		}	
 
-        public function getuserid(){
-			return $this->userid;
-		}
+        // public function getuserid(){
+		// 	return $this->userid;
+		// }
 		
-		public function setuserid(){
-			$this->userid = $userid;
-		}
+		// public function setuserid(){
+		// 	$this->userid = $userid;
+		// }
 		
 		public function getcustomerName(){
 			return $this->customerName;

@@ -39,7 +39,6 @@
                     $noError = false;
                 }
             }  
-
             echo 'before if';
             if(isset($_FILES['fileToUpload'])){
                 echo 'into';
@@ -63,6 +62,7 @@
                 $user = new Userinfo($_POST['customerName'], $_POST['phoneNumber'], $emailHash, $_POST['referral']);
                 $addSuccess = $userinfoDAO->addUser($user);
                 echo '<h3>' . $addSuccess . '</h3>';
+
             }
 
             //     $query3 = "INSERT INTO mailingList (customerName, phoneNumber, emailAddress, referrer) VALUES ";
@@ -123,7 +123,7 @@
                 <tr>
                     <td>Choose a file to upload:<br>
                         <input type="file" name="fileToUpload" id="fileToUpload">
-
+                        <?php if(isset($error_file)) {echo $error_file;} ?>
                     </td>
                 </tr>
                 <tr>
@@ -132,7 +132,7 @@
             </table>
         </form>
     </div><!-- End Main -->
-</div> <!--End Content -->
+</div><!-- End Content -->
 <?php
     }catch(Exception $e){
         echo '<h3>Error on page.</h3>';

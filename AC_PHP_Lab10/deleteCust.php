@@ -1,9 +1,9 @@
 <?php
-//    session_start();
-//    session_regenerate_id(false);
-
    require_once('header.php'); 
    require_once('./dao/UserinfoDAO.php');
+   
+   session_start();
+   session_regenerate_id(false);
 
    $missingFields = false;
    if(isset($_SESSION['user'])){
@@ -14,7 +14,6 @@
                     if($_POST['deleteCust'] == "" ){
                         $missingFields = true;
                     }else{
-                        echo 'deleteCust no missing fields';
                         $userinfoDAO = new UserinfoDAO();
                         $customerID = $_POST['deleteCust'];
                         if($userinfoDAO->deleteUser($customerID)){

@@ -25,8 +25,8 @@
                         <li><a href="index.php">Home</a></li>
                         <li><a href="menu.php">Menu</a></li>
                         <li><a href="contact.php">Contact</a></li>
-                        <li><a href="deleteCust.php">Delete</a></li>
                         <li><a href="mailingList.php">List</a></li>
+                        <li><a href="deleteCust.php">Delete</a></li>
                     </ul>
                 </div>
             </nav>
