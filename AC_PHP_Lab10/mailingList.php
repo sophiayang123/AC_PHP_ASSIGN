@@ -1,10 +1,10 @@
 <?php
-    // session_start();
-    // session_regenerate_id(false);
-
     require_once('header.php');
     require_once('./dao/UserinfoDAO.php');
     require_once('./model/Admininfo.php');
+
+    session_start();
+    session_regenerate_id(false);
 
     function printDB($userinfoDAO){
         $users = $userinfoDAO->getUsers();
@@ -30,18 +30,20 @@
     }
 
     if(isset($_SESSION['user'])){
-        echo 'into if' . $_SESSION['user'];
         if($_SESSION['user']->isAuthenticated()){
-            // session_write_close();
-            $userinfoDAO = new UserinfoDAO();
-            echo 'Session AdminID = ' . $_SESSION['user']->getAdminID() . '</br>';
-            echo 'Last login date = ' . $_SESSION['user']->getLastLogin();
-            printDB($userinfoDAO);
-        }
+            session_write_close();
+             $userinfoDAO = new UserinfoDAO();
+             echo 'Session AdminID = ' . $_SESSION['user']->getAdminID() . '</br>';
+             echo 'Last login date = ' . $_SESSION['user']->getLastLogin();
+             printDB($userinfoDAO);
+         }
     }else{
-        echo 'mailingList session user not set <br>';
-        // header('Location: userlogin.php');
+        header('Location: userlogin.php');
     }
+
 ?>
 
-<?php     require_once('footer.php'); ?>
+    <a href="logout.php">Logout!</a>
+
+
+<?php require_once('footer.php'); ?>

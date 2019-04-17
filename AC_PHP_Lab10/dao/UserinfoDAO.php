@@ -7,16 +7,14 @@
         protected $adminID;
         protected $lastLogin;
         protected $dbError;
-        // private $password;
-        private $authenticated = false;
+        protected $authenticated = false;
 
         function __construct() {
             try{
                 parent::__construct();
-                $dbError = true;
-                
-            }catch(mysqli_sql_exception $e){
                 $dbError = false;
+            }catch(mysqli_sql_exception $e){
+                $dbError = true;
                 throw $e;
             }
         }
@@ -39,14 +37,19 @@
 
         public function deleteUser($customerID){
             if(!$this->mysqli->connect_errno){
-                $query = 'DELETE FROM mailingList WHERE _id = ?';
-                $stmt = $this->mysqli->prepare($query);
-                $stmt->bind_param('i', $customerID);
+                $Query = "SELECT * FROM mailingList WHERE _id = ?";
+                $stmt = $this->mysqli->prepare($Query);
+                $stmt->bind_param('i',$customerID);
                 $stmt->execute();
-                if($stmt->error){
-                    return false;
-                } else {
+                $result = $stmt->get_result();
+                if($result->num_rows == 1){
+                    $query = 'DELETE FROM mailingList WHERE _id = ?';
+                    $stmt = $this->mysqli->prepare($query);
+                    $stmt->bind_param('i', $customerID);
+                    $stmt->execute();
                     return true;
+                }else{
+                    return false;
                 }
             } else {
                 return false;
@@ -57,14 +60,14 @@
             if(!$this->mysqli->connect_errno){
                 $query = 'INSERT INTO mailingList (customerName, phoneNumber, emailAddress, referrer) VALUES (?,?,?,?)';
                 $stmt = $this->mysqli->prepare($query);
-                $stmt->bind_param('ssss', $user->getcustomerName(), $user->getphoneNumber(), $user->getemailAddress(), $user->getreferrer());
+                $stmt->bind_param('ssss', $user->getcustomerName(), $user->getphoneNumber(), password_hash($user->getemailAddress(), PASSWORD_DEFAULT), $user->getreferrer());
                 $stmt->execute();
 
                 if($stmt->error){
                     echo "error";
                     return $stmt->error;
                 } else {
-                    return $user->getuserid() . ' ' . $user->getcustomerName() . ' ' . $user->getphoneNumber() . ' ' . $user->getemailAddress() . ' ' . $user->getreferrer() .' added successfully!';
+                    return 'added successfully!';
                 }
             }else {
                 return 'Could not connect to Database.';
@@ -117,7 +120,6 @@
         }
 
         public function isAuthenticated(){
-            echo 'into userinfoDAO isAuthenticated';
             return $this->authenticated;
         }
 

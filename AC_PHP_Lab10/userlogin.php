@@ -2,6 +2,10 @@
     require_once('./dao/UserinfoDAO.php'); 
     require_once('header.php');
 
+    session_start();
+    session_regenerate_id(false);
+    //echo session_id();
+
     $missingFields = false;
     if(isset($_POST['submit'])){
         if(isset($_POST['username']) && isset($_POST['password'])){
@@ -12,18 +16,12 @@
                 if(!$user->hasDbError()){
                     $username = $_POST['username'];
                     $password = $_POST['password'];
-                    $user->authenticate($username, $password);           
+                    $user->authenticate($username, $password);       
                     if($user->isAuthenticated()){
-                        echo 'userlogin user isAuthenticated<br>';
                         //insert date to database at this point
+                        $_SESSION['user'] = $user;
                         $user->updateDate($username,$password);
-                        session_start();
-                        session_regenerate_id(false); 
-                        if(isset($_SESSION['user'])){
-                            echo 'userlogin session isset <br>';
-                            $_SESSION['user'] = $user;
-                            // header('Location: mailqingList.php');
-                        }  
+                        header('Location: mailingList.php');
                     }
                 }
             }
@@ -31,17 +29,17 @@
     }
 ?>
 
-        <!-- MESSAGES -->
+         <!-- MESSAGES -->
         <?php
-            if($missingFields){
-               echo '<h3 style="color:red;">Please enter both a username and a password</h3>';
-           } 
-            if(isset($user)){
-                if(!$user->isAuthenticated()){
-                    echo '<h3 stype="color:red;">Login failed. Please try again.</h3>';
-                }
-           }
-        ?>
+             if($missingFields){
+                echo '<h3 style="color:red;">Please enter both a username and a password</h3>';
+            } 
+             if(isset($user)){
+                 if(!$user->isAuthenticated()){
+                     echo '<h3 stype="color:red;">Login failed. Please try again.</h3>';
+                 }
+            }
+         ?> 
 
         <form name="login" id="login" method="post" action=<?php echo $_SERVER['PHP_SELF'];?> >
             <table>
