@@ -4,7 +4,6 @@
 
     session_start();
     session_regenerate_id(false);
-    //echo session_id();
 
     $missingFields = false;
     if(isset($_POST['submit'])){
@@ -21,7 +20,10 @@
                         //insert date to database at this point
                         $_SESSION['user'] = $user;
                         $user->updateDate($username,$password);
-                        header('Location: mailingList.php');
+                        if($_SESSION['btnClicked'] != NULL){
+                            $dest = 'Location: ' . $_SESSION['btnClicked'] . '.php';
+                            header($dest);
+                        }
                     }
                 }
             }

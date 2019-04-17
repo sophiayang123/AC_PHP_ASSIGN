@@ -38,6 +38,7 @@
              printDB($userinfoDAO);
          }
     }else{
+        $_SESSION['btnClicked'] = 'mailingList';
         header('Location: userlogin.php');
     }
 

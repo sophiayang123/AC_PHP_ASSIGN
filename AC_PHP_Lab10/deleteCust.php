@@ -26,6 +26,7 @@
             }
         }
     }else{
+        $_SESSION['btnClicked'] = 'deleteCust';
         header('Location: userlogin.php');  
     }
 
