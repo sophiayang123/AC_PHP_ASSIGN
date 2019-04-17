@@ -60,7 +60,12 @@
             if(!$this->mysqli->connect_errno){
                 $query = 'INSERT INTO mailingList (customerName, phoneNumber, emailAddress, referrer) VALUES (?,?,?,?)';
                 $stmt = $this->mysqli->prepare($query);
-                $stmt->bind_param('ssss', $user->getcustomerName(), $user->getphoneNumber(), password_hash($user->getemailAddress(), PASSWORD_DEFAULT), $user->getreferrer());
+                // $email_hash = password_hash($user->getemailAddress(),PASSWORD_DEFAULT);
+                $var1 = $user->getcustomerName();
+                $var2 = $user->getphoneNumber();
+                $var3 = $user->getemailAddress();
+                $var4 =  $user->getreferrer();
+                $stmt->bind_param('ssss', $var1,$var2,$var3,$var4);
                 $stmt->execute();
 
                 if($stmt->error){

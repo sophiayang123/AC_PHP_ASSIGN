@@ -39,7 +39,7 @@
                     $noError = false;
                 }
             }  
-            echo 'before if';
+
             if(isset($_FILES['fileToUpload'])){
                 echo 'into';
                 $target_dir = "./files/";
@@ -58,7 +58,7 @@
             }
 
             if($noError==true){
-                $emailHash = password_hash($emailAddress, PASSWORD_DEFAULT);
+                $emailHash = password_hash($_POST['emailAddress'], PASSWORD_DEFAULT);
                 $user = new Userinfo($_POST['customerName'], $_POST['phoneNumber'], $emailHash, $_POST['referral']);
                 $addSuccess = $userinfoDAO->addUser($user);
                 echo '<h3>' . $addSuccess . '</h3>';

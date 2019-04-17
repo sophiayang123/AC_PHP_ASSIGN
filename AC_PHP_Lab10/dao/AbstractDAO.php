@@ -4,7 +4,7 @@
     class AbstractDAO{
         protected $mysqli;
         
-        protected static $DB_HOST = 'localhost:8889';
+        protected static $DB_HOST = 'localhost:3306';
         protected static $DB_USERNAME = 'wp_eatery';
         protected static $DB_PASSWORD = 'password';
         protected static $DB_DATABASE = 'wp_eatery';
