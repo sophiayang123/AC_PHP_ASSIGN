@@ -41,7 +41,6 @@
             }  
 
             if(isset($_FILES['fileToUpload'])){
-                echo 'into';
                 $target_dir = "./files/";
                 $file_name = $_FILES['fileToUpload']['name'];
                 $target_store = $target_dir.$file_name;
