@@ -40,27 +40,29 @@
                 }
             }  
 
-            if(isset($_FILES['fileToUpload'])){
-                $target_dir = "./files/";
-                $file_name = $_FILES['fileToUpload']['name'];
-                $target_store = $target_dir.$file_name;
-                if(file_exists($target_store)) {
-                    $error_file = "<div class='error' >Sorry, file already exists.</div>";
-                    $noError = false;
-                } elseif(move_uploaded_file($_FILES['fileToUpload']['tmp_name'], $target_store) ) {
-                    $error_file = '<div>The file '. basename( $_FILES['fileToUpload']['name']). ' has been uploaded.</div>';
-                }else{
-                    $error_file = "<div class='error' >Sorry, there was an error uploading your file.</div>";
-                    $noError = false;
-                }
-                
-            }
+
 
             if($noError==true){
                 $emailHash = password_hash($_POST['emailAddress'], PASSWORD_DEFAULT);
                 $user = new Userinfo($_POST['customerName'], $_POST['phoneNumber'], $emailHash, $_POST['referral']);
                 $addSuccess = $userinfoDAO->addUser($user);
                 echo '<h3>' . $addSuccess . '</h3>';
+
+                if(isset($_FILES['fileToUpload'])){
+                    $target_dir = "./files/";
+                    $file_name = $_FILES['fileToUpload']['name'];
+                    $target_store = $target_dir.$file_name;
+                    if(file_exists($target_store)) {
+                        $error_file = "<div class='error' > file uploaded filed.</div>";
+                        //$noError = false;
+                    } elseif(move_uploaded_file($_FILES['fileToUpload']['tmp_name'], $target_store) ) {
+                        $error_file = '<div>The file '. basename( $_FILES['fileToUpload']['name']). ' has been uploaded.</div>';
+                    }else{
+                        $error_file = "<div class='error' >Sorry, there was an error uploading your file.</div>";
+                        //$noError = false;
+                    }
+                    
+                }
 
             }
 

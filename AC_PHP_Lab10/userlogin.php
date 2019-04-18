@@ -20,9 +20,11 @@
                         //insert date to database at this point
                         $_SESSION['user'] = $user;
                         $user->updateDate($username,$password);
-                        if($_SESSION['btnClicked'] != NULL){
+                        if(isset($_SESSION['btnClicked'])){
                             $dest = 'Location: ' . $_SESSION['btnClicked'] . '.php';
                             header($dest);
+                        } else {
+                            header('Location: mailingList.php');//default location if any error occurs
                         }
                     }
                 }
